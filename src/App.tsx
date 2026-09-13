@@ -41,6 +41,7 @@ export const App: React.FC = () => {
       onSelectDiff={capture.setDiffRequest}
       onClearDiff={() => capture.setDiffRequest(null)}
       onClearRequests={capture.clearRequests}
+      onUpdateRequests={capture.setRequests}
     />
   );
 };

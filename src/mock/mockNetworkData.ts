@@ -1,6 +1,8 @@
 import { NetworkRequest, HttpMethod } from '../types/index.js';
 import { auditSecurityHeaders } from '../audit/securityAudit.js';
 import { parseGraphQLRequest } from '../audit/graphqlParser.js';
+import { extractJwtTokens } from '../audit/jwtInspector.js';
+import { scanForPiiAndLeaks } from '../audit/piiScanner.js';
 
 interface RawMockItem {
   id: string;
@@ -334,7 +336,7 @@ const RAW_MOCK_ITEMS: RawMockItem[] = [
     ),
     responseBody: JSON.stringify(
       {
-        access_token: 'jwt_eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...',
+        access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfOTA4MTEiLCJuYW1lIjoiQWxleCBELiIsInJvbGVzIjpbImFkbWluIiwiZGV2ZWxvcGVyIl0sImlhdCI6MTcxMDAwMDAwMCwiZXhwIjoxOTAwMDAwMDAwfQ.dGhpcy1pcy1hLXNhbXBsZS1zaWduYXR1cmUtZm9yLWFwaXNjb3Bl',
         token_type: 'Bearer',
         expires_in: 3600,
         scope: 'read:apis write:audits',
@@ -345,6 +347,32 @@ const RAW_MOCK_ITEMS: RawMockItem[] = [
     timestamp: new Date(Date.now() - 3000).toLocaleTimeString(),
     sizeBytes: 810,
   },
+  {
+    id: 'req_analytics_leak',
+    tabId: 101,
+    url: 'https://telemetry.external-service.com/collect?token=sec_live_99a8b71cc20&user_id=usr_4401',
+    path: '/collect?token=sec_live_99a8b71cc20&user_id=usr_4401',
+    domain: 'telemetry.external-service.com',
+    method: 'GET',
+    status: 200,
+    statusText: 'OK',
+    type: 'fetch',
+    startTime: Date.now() - 1500,
+    endTime: Date.now() - 1420,
+    durationMs: 80,
+    requestHeaders: {
+      'Accept': '*/*',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+    },
+    responseHeaders: {
+      'content-type': 'application/json',
+      'access-control-allow-origin': '*',
+    },
+    requestBody: null,
+    responseBody: JSON.stringify({ success: true, processed_events: 1 }),
+    timestamp: new Date(Date.now() - 1500).toLocaleTimeString(),
+    sizeBytes: 310,
+  },
 ];
 
 export const INITIAL_MOCK_REQUESTS: NetworkRequest[] = RAW_MOCK_ITEMS.map((item) => {
@@ -352,6 +380,8 @@ export const INITIAL_MOCK_REQUESTS: NetworkRequest[] = RAW_MOCK_ITEMS.map((item)
     ...item,
     securityAudit: auditSecurityHeaders(item.url, item.responseHeaders),
     graphql: parseGraphQLRequest(item.url, item.method, item.requestBody),
+    jwtTokens: extractJwtTokens(item.requestHeaders, item.responseHeaders, item.requestBody, item.responseBody),
+    piiWarnings: scanForPiiAndLeaks(item.url, item.method, item.requestHeaders, item.requestBody, item.responseBody),
   };
   return req;
 });
@@ -449,6 +479,8 @@ export function generateRandomMockRequest(): NetworkRequest {
 
   req.securityAudit = auditSecurityHeaders(req.url, req.responseHeaders);
   req.graphql = parseGraphQLRequest(req.url, req.method, req.requestBody);
+  req.jwtTokens = extractJwtTokens(req.requestHeaders, req.responseHeaders, req.requestBody, req.responseBody);
+  req.piiWarnings = scanForPiiAndLeaks(req.url, req.method, req.requestHeaders, req.requestBody, req.responseBody);
 
   return req;
 }

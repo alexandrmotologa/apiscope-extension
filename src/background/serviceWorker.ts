@@ -2,6 +2,8 @@
 import { NetworkRequest } from '../types/index.js';
 import { auditSecurityHeaders } from '../audit/securityAudit.js';
 import { parseGraphQLRequest } from '../audit/graphqlParser.js';
+import { extractJwtTokens } from '../audit/jwtInspector.js';
+import { scanForPiiAndLeaks } from '../audit/piiScanner.js';
 
 interface InFlightRequest {
   id: string;
@@ -137,6 +139,10 @@ if (typeof chrome !== 'undefined' && chrome.webRequest) {
 
       // Perform GraphQL detection & parsing
       record.graphql = parseGraphQLRequest(record.url, record.method, record.requestBody);
+
+      // Extract JWT tokens & scan for PII
+      record.jwtTokens = extractJwtTokens(record.requestHeaders, record.responseHeaders, record.requestBody, record.responseBody);
+      record.piiWarnings = scanForPiiAndLeaks(record.url, record.method, record.requestHeaders, record.requestBody, record.responseBody);
 
       // Store in ring buffer
       const tabId = inFlight.tabId;

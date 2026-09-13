@@ -14,6 +14,7 @@ interface SidePanelViewProps {
   onClearRequests: () => void;
   isStreaming?: boolean;
   onToggleStreaming?: () => void;
+  onUpdateRequests?: (reqs: NetworkRequest[]) => void;
 }
 
 export const SidePanelView: React.FC<SidePanelViewProps> = ({
@@ -26,11 +27,12 @@ export const SidePanelView: React.FC<SidePanelViewProps> = ({
   onClearRequests,
   isStreaming,
   onToggleStreaming,
+  onUpdateRequests,
 }) => {
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-slate-950 font-mono text-xs">
       {/* Left Pane: Requests list */}
-      <div className="w-[360px] md:w-[420px] shrink-0 h-full flex flex-col">
+      <div className="w-[380px] md:w-[440px] shrink-0 h-full flex flex-col">
         <RequestTable
           requests={requests}
           selectedRequest={selectedRequest}
@@ -40,6 +42,7 @@ export const SidePanelView: React.FC<SidePanelViewProps> = ({
           onClear={onClearRequests}
           isStreaming={isStreaming}
           onToggleStreaming={onToggleStreaming}
+          onUpdateRequests={onUpdateRequests}
         />
       </div>
 

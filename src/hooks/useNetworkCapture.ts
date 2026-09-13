@@ -4,6 +4,7 @@ import { INITIAL_MOCK_REQUESTS, generateRandomMockRequest } from '../mock/mockNe
 
 export interface UseNetworkCaptureResult {
   requests: NetworkRequest[];
+  setRequests: React.Dispatch<React.SetStateAction<NetworkRequest[]>>;
   selectedRequest: NetworkRequest | null;
   setSelectedRequest: (req: NetworkRequest | null) => void;
   diffRequest: NetworkRequest | null;
@@ -122,6 +123,7 @@ export function useNetworkCapture(): UseNetworkCaptureResult {
 
   return {
     requests,
+    setRequests,
     selectedRequest,
     setSelectedRequest,
     diffRequest,

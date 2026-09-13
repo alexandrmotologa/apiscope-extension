@@ -139,6 +139,7 @@ export const StandaloneDevView: React.FC<StandaloneDevViewProps> = ({ capture })
             onClearRequests={capture.clearRequests}
             isStreaming={capture.isStreaming}
             onToggleStreaming={capture.toggleStreaming}
+            onUpdateRequests={capture.setRequests}
           />
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center p-6 bg-slate-900/30">
