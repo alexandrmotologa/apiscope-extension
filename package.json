@@ -1,0 +1,46 @@
+{
+  "name": "apiscope-extension",
+  "version": "1.0.0",
+  "description": "Developer-first Chromium extension for real-time API sniffing, OWASP security header auditing, and 1-click cURL/RestPocket exports.",
+  "type": "module",
+  "scripts": {
+    "dev:web": "vite",
+    "build": "tsc && vite build && node scripts/copy-manifest.js",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "chrome-extension",
+    "api-sniffer",
+    "network-debugger",
+    "owasp",
+    "security-audit",
+    "curl",
+    "restpocket",
+    "graphql",
+    "manifest-v3"
+  ],
+  "author": "alexandrmotologa",
+  "license": "MIT",
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.16.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.300",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "vitest": "^2.1.8"
+  }
+}
