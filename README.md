@@ -1,8 +1,55 @@
-# APIScope
+<p align="center">
+  <img src="docs/images/logo.png?raw=true" alt="APIScope Logo" width="130" style="border-radius: 24px;" />
+</p>
+
+<h1 align="center">APIScope</h1>
+
+<p align="center">
+  <strong>Real-time API traffic inspector, OWASP auditor, and developer export toolkit for Chromium browsers.</strong>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/manifest-v3-blue?style=flat-square" alt="Manifest V3" />
+  <img src="https://img.shields.io/badge/TypeScript-5.x-3178c6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/React-19-61dafb?style=flat-square&logo=react&logoColor=white" alt="React 19" />
+  <img src="https://img.shields.io/badge/Vite-6-646cff?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/tests-34%20passed-22c55e?style=flat-square" alt="Tests" />
+  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="MIT License" />
+</p>
+
+---
 
 APIScope is an open-source Chromium extension (Manifest V3) and standalone developer tool for real-time API sniffing, OWASP security header auditing, JWT inspection, payload type generation, and export to cURL, Postman, OpenAPI, HAR, and RestPocket.
 
-It works both as an unpacked browser extension (running in Chrome, Brave, Edge) and as a local web studio with live simulated network traffic.
+It works both as an unpacked browser extension (Chrome, Brave, Edge) and as a local web studio with live simulated network traffic — no installation required to try it out.
+
+---
+
+## Screenshots
+
+### Security Audit & Request Table
+<p align="center">
+  <img src="docs/images/screenshot-security-audit.png?raw=true" alt="APIScope Security Audit" width="900" />
+</p>
+<p align="center"><em>OWASP security audit with scored findings, remediation advice, and quick-filter chips</em></p>
+
+### Analytics Dashboard
+<p align="center">
+  <img src="docs/images/screenshot-analytics.png?raw=true" alt="APIScope Analytics Dashboard" width="900" />
+</p>
+<p align="center"><em>Traffic metrics: method distribution, status codes, slowest endpoints, and security health</em></p>
+
+### Payload Inspector & Type Generator
+<p align="center">
+  <img src="docs/images/screenshot-payload.png?raw=true" alt="APIScope Payload Inspector" width="900" />
+</p>
+<p align="center"><em>Pretty-printed JSON with 1-click TypeScript interface and Zod schema generation</em></p>
+
+### Export & Interoperability
+<p align="center">
+  <img src="docs/images/screenshot-export.png?raw=true" alt="APIScope Export Options" width="900" />
+</p>
+<p align="center"><em>Export to cURL, Python, fetch, HTTPie, Postman, OpenAPI, HAR, and RestPocket</em></p>
 
 ---
 
@@ -155,6 +202,12 @@ apiscope-extension/
 ├── tsconfig.json
 ├── vite.config.ts             # Bundler configuration for UI and service worker
 ├── public/                    # Extension icons and assets
+├── docs/
+│   ├── images/               # Logo and screenshots
+│   ├── ARCHITECTURE.md       # System design and data flow
+│   ├── FEATURES.md           # Feature catalog and roadmap
+│   ├── SECURITY_AUDIT.md     # OWASP audit methodology
+│   └── RESTPOCKET_INTEROP.md # RestPocket integration guide
 ├── src/
 │   ├── audit/
 │   │   ├── securityAudit.ts   # OWASP scoring engine
@@ -170,11 +223,16 @@ apiscope-extension/
 │   ├── mock/                  # Realistic mock dataset for standalone preview
 │   ├── views/                 # PopupView, SidePanelView, StandaloneDevView
 │   └── types/                 # Shared TypeScript interfaces
+├── scripts/                   # Logo generation and build utilities
 ├── test/                      # Vitest test files
 └── docs/                      # Technical documentation
 ```
 
 ---
+
+## Contributing
+
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
 
 ## License
 
