@@ -17,6 +17,10 @@
   <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="MIT License" />
 </p>
 
+<p align="center">
+  <img src="docs/images/apiscope-demo.gif?raw=true" alt="APIScope Showcase Walkthrough" width="900" style="border-radius: 12px; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.5);" />
+</p>
+
 ---
 
 APIScope is an open-source Chromium extension (Manifest V3) and standalone developer tool for real-time API sniffing, OWASP security header auditing, JWT inspection, payload type generation, and export to cURL, Postman, OpenAPI, HAR, and RestPocket.
